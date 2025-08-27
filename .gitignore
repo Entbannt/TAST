@@ -1,0 +1,19 @@
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# OS files
+SUPER_ADMIN_SETUP.md
+premier_backup.json
+package.json
+config.js
+abwesenheiten.json
+premier_backup.json
+premier_backup.json
