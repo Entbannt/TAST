@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ Verwarnungs-System ⚠️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 2px solid #DC143C;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card-description {
+            color: #cccccc;
+            line-height: 1.6;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .card-team {
+            background: linear-gradient(135deg, #2d0a0a 0%, #1a1a1a 100%);
+            border-color: #FF1744;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #DC143C;
+            text-align: center;
+        }
+
+        .info-box h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .info-box p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .info-box code {
+            background: rgba(220, 20, 60, 0.2);
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: #FF1744;
+            font-weight: bold;
+            border: 1px solid #DC143C;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚠️ Verwarnungs-System ⚠️</h1>
+        </div>
+
+        <div class="cards">
+            <a href="warnings.html" class="card card-team">
+                <div class="card-icon">👥</div>
+                <div class="card-title">Team-Übersicht</div>
+                <div class="card-description">
+                    Zeigt alle Spieler mit ihren Verwarnungen in einer Übersicht.
+                    Statistiken und sortierte Liste nach Verwarnungsanzahl.
+                </div>
+            </a>
+        </div>
+
+        <div class="info-box">
+            <h3>ℹ️ Wie benutze ich das System?</h3>
+            <p>
+                <strong>Verwarnungen erteilen:</strong> Nutze den Discord-Befehl <code>/verwarnung</code> (nur für Admins)<br><br>
+                <strong>Verwarnungen ansehen:</strong> Klicke auf "Team-Übersicht" und dann auf einen Spieler für Details
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

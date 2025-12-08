@@ -1,0 +1,17 @@
+node_modules/
+*.log
+*.env
+.env
+.DS_Store
+nssm.exe
+
+# JSON Dateien mit sensiblen Daten
+abwesenheiten.json
+basedata.json
+mvp_votes.json
+premier_backup.json
+roles.json
+warnings.json
+
+# Dist-Ordner wird separat gemanagt für GitHub Pages
+# dist/

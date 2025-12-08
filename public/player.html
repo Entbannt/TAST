@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spieler Verwarnungen - Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            color: white;
+            border: 2px solid #FF1744;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
+        }
+
+        .player-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+            border-radius: 15px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
+            border: 2px solid #DC143C;
+            text-align: center;
+        }
+
+        .player-name {
+            font-size: 2.5em;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .warning-count {
+            font-size: 1.5em;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .warnings-container {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #DC143C;
+        }
+
+        .warnings-container h2 {
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .warning-item {
+            background: rgba(40, 40, 40, 0.5);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-left: 5px solid #DC143C;
+        }
+
+        .warning-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .warning-number {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .warning-date {
+            color: #cccccc;
+            font-size: 0.95em;
+        }
+
+        .warning-reason {
+            background: rgba(20, 20, 20, 0.5);
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #DC143C;
+        }
+
+        .warning-reason-label {
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .warning-reason-text {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .warning-issuer {
+            color: #999;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .no-warnings {
+            text-align: center;
+            padding: 50px;
+            color: #cccccc;
+            font-size: 1.3em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #ffffff;
+            font-size: 1.3em;
+        }
+
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #ffffff;
+            font-size: 1.3em;
+        }
+
+        @media (max-width: 768px) {
+            .player-name {
+                font-size: 1.8em;
+            }
+
+            .warning-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="goBack()">
+            ← Zurück zur Übersicht
+        </button>
+
+        <div class="player-header" id="playerHeader">
+            <div class="loading">Lade Spielerdaten...</div>
+        </div>
+
+        <div class="warnings-container">
+            <h2>📋 Verwarnungsverlauf</h2>
+            <div id="warningsList">
+                <div class="loading">Lade Verwarnungen...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function goBack() {
+            window.location.href = 'warnings.html';
+        }
+
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            
+            return `${day}.${month}.${year} um ${hours}:${minutes} Uhr`;
+        }
+
+        async function loadPlayerWarnings() {
+            const userId = getUrlParameter('userId');
+            
+            if (!userId) {
+                // Weiterleitung zur Team-Übersicht, wenn kein Spieler ausgewählt
+                window.location.href = 'warnings.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/warnings/${userId}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    displayPlayerData(result.data);
+                } else {
+                    document.getElementById('playerHeader').innerHTML = 
+                        '<div class="error">Spieler nicht gefunden</div>';
+                    document.getElementById('warningsList').innerHTML = '';
+                }
+            } catch (error) {
+                console.error('Fehler:', error);
+                document.getElementById('playerHeader').innerHTML = 
+                    '<div class="error">Fehler beim Laden der Daten</div>';
+                document.getElementById('warningsList').innerHTML = '';
+            }
+        }
+
+        function displayPlayerData(data) {
+            // Header
+            const headerHtml = `
+                <div class="player-name">${data.displayName}</div>
+                <div class="warning-count">
+                    ${data.warnings.length} Verwarnung${data.warnings.length !== 1 ? 'en' : ''}
+                </div>
+            `;
+            document.getElementById('playerHeader').innerHTML = headerHtml;
+
+            // Verwarnungen
+            const warningsList = document.getElementById('warningsList');
+            
+            if (data.warnings.length === 0) {
+                warningsList.innerHTML = 
+                    '<div class="no-warnings">Keine Verwarnungen vorhanden! 🎉</div>';
+                return;
+            }
+
+            // Sortiere Verwarnungen nach Datum (neueste zuerst)
+            const sortedWarnings = [...data.warnings].sort((a, b) => 
+                new Date(b.timestamp) - new Date(a.timestamp)
+            );
+
+            let html = '';
+            sortedWarnings.forEach((warning, index) => {
+                const warningNumber = sortedWarnings.length - index;
+                html += `
+                    <div class="warning-item">
+                        <div class="warning-header">
+                            <div class="warning-number">
+                                ⚠️ ${warningNumber}. Verwarnung ⚠️
+                            </div>
+                            <div class="warning-date">
+                                📅 ${formatDate(warning.timestamp)}
+                            </div>
+                        </div>
+                        <div class="warning-reason">
+                            <div class="warning-reason-label">Grund:</div>
+                            <div class="warning-reason-text">${warning.grund}</div>
+                        </div>
+                        <div class="warning-issuer">
+                            Erteilt von: ${warning.issuedByName}
+                        </div>
+                    </div>
+                `;
+            });
+
+            warningsList.innerHTML = html;
+        }
+
+        // Lade Daten beim Laden der Seite
+        loadPlayerWarnings();
+    </script>
+</body>
+</html>
+
