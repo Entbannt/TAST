@@ -2,9 +2,11 @@ const { MongoClient } = require('mongodb');
 const axios = require('axios');
 const axiosRetry = require('axios-retry');
 const fs = require('fs');
+const path = require('path');
 
 // Lade Konfiguration
-const basedata = JSON.parse(fs.readFileSync('./basedata.json', 'utf8'));
+const basedataPath = path.join(__dirname, '..', '..', '2-data', 'basedata.json');
+const basedata = JSON.parse(fs.readFileSync(basedataPath, 'utf8'));
 
 // MongoDB Client Setup
 const mongoclient = new MongoClient(basedata.mongoaccess);
