@@ -29,7 +29,7 @@ if not exist "node_modules" (
 
 REM Bot starten
 echo Starte Discord Bot...
-node app\src\bot\index.js
+node app\1-src\bot\index.js
 
 REM Bei Fehler Fenster offen lassen
 if errorlevel 1 (

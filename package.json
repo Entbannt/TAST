@@ -20,7 +20,7 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "start": "node app/src/bot/index.js",
-    "dev": "node app/src/bot/index.js"
+    "start": "node app/1-src/bot/index.js",
+    "dev": "node app/1-src/bot/index.js"
   }
 }

@@ -16,10 +16,10 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 # Aktuelles Verzeichnis (Projekt-Root)
-$ScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path  # app/scripts/
+$ScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path  # app/4-scripts/
 $AppPath = Split-Path -Parent $ScriptPath  # app/
 $CurrentPath = Split-Path -Parent $AppPath  # TAST/
-$BotPath = Join-Path $CurrentPath "app\src\bot\index.js"
+$BotPath = Join-Path $CurrentPath "app\1-src\bot\index.js"
 $BatchPath = Join-Path $ScriptPath "start-bot.bat"
 
 # Prüfen ob Bot-Dateien existieren

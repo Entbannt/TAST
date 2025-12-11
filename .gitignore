@@ -4,9 +4,9 @@ node_modules/
 .env
 .DS_Store
 
-# Sensible Daten im app/data/ Ordner
-app/data/
-!app/data/.gitkeep
+# Sensible Daten im app/2-data/ Ordner
+app/2-data/
+!app/2-data/.gitkeep
 
 # Dist-Ordner wird separat gemanagt für GitHub Pages
-# app/dist/
+# app/5-dist/
