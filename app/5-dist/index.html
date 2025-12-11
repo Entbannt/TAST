@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚠️ Verwarnungs-System ⚠️</title>
+    <title>TAST - Team Anmeldungs & Status Tracker</title>
     <style>
         * {
             margin: 0;
@@ -13,141 +13,606 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 800px;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        .header {
+        header {
             text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .cards {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            border: 2px solid #DC143C;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .card-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .card-title {
-            font-size: 2em;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .card-description {
-            color: #cccccc;
-            line-height: 1.6;
-            text-align: center;
-            font-size: 1.1em;
-        }
-
-        .card-team {
-            background: linear-gradient(135deg, #2d0a0a 0%, #1a1a1a 100%);
-            border-color: #FF1744;
-        }
-
-        .info-box {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
             border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 2px solid #DC143C;
-            text-align: center;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.3);
         }
 
-        .info-box h3 {
-            color: #ffffff;
+        header h1 {
+            font-size: 48px;
             margin-bottom: 15px;
-            font-size: 1.3em;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        .info-box p {
+        header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 15px 5px 0;
+            font-weight: 600;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 5px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #ff0000;
+            font-size: 32px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h3 {
+            color: #ff4444;
+            font-size: 24px;
+            margin: 30px 0 15px;
+        }
+
+        .section p {
             color: #cccccc;
-            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 16px;
         }
 
-        .info-box code {
-            background: rgba(220, 20, 60, 0.2);
-            padding: 4px 10px;
-            border-radius: 4px;
-            color: #FF1744;
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 0, 0, 0.1);
+            border-color: rgba(255, 0, 0, 0.6);
+        }
+
+        .feature-card h4 {
+            color: #ff0000;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #aaaaaa;
+            font-size: 14px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .tech-badge {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.5);
+        }
+
+        .code-block {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+        }
+
+        .command {
+            color: #ff0000;
             font-weight: bold;
-            border: 1px solid #DC143C;
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff0000;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .icon {
+            font-size: 32px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #cccccc;
+        }
+
+        ul li:before {
+            content: "▸";
+            color: #ff0000;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #00ff00;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666666;
+            border-top: 1px solid rgba(255, 0, 0, 0.1);
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #ff0000;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
+            header h1 {
+                font-size: 32px;
             }
 
-            .card {
-                max-width: 100%;
+            .section {
+                padding: 25px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>⚠️ Verwarnungs-System ⚠️</h1>
-        </div>
+        <header>
+            <h1>🎮 TAST</h1>
+            <p>Team Anmeldungs & Status Tracker</p>
+            <div>
+                <span class="badge">Discord Bot</span>
+                <span class="badge">VALORANT Integration</span>
+                <span class="badge">Web Dashboard</span>
+                <span class="badge">Open Source</span>
+            </div>
+        </header>
 
-        <div class="cards">
-            <a href="warnings.html" class="card card-team">
-                <div class="card-icon">👥</div>
-                <div class="card-title">Team-Übersicht</div>
-                <div class="card-description">
-                    Zeigt alle Spieler mit ihren Verwarnungen in einer Übersicht.
-                    Statistiken und sortierte Liste nach Verwarnungsanzahl.
-                </div>
-            </a>
-        </div>
-
-        <div class="info-box">
-            <h3>ℹ️ Wie benutze ich das System?</h3>
+        <!-- Übersicht -->
+        <div class="section">
+            <h2><span class="icon">📋</span> Projektübersicht</h2>
             <p>
-                <strong>Verwarnungen erteilen:</strong> Nutze den Discord-Befehl <code>/verwarnung</code> (nur für Admins)<br><br>
-                <strong>Verwarnungen ansehen:</strong> Klicke auf "Team-Übersicht" und dann auf einen Spieler für Details
+                <span class="status-indicator"></span>
+                <strong>TAST</strong> ist ein umfassendes Discord-Bot-System für VALORANT E-Sport Teams, 
+                das Team-Management, Spieler-Tracking und automatische Rollenverwaltung vereint.
+            </p>
+            <p>
+                Das System kombiniert einen Discord Bot mit Web-Dashboards und bietet Funktionen für 
+                Premier-Anmeldungen, Scrim-Management, Abwesenheitsverwaltung, MVP-Voting und automatische 
+                VALORANT Rank-Verifizierung.
+            </p>
+        </div>
+
+        <!-- Features -->
+        <div class="section">
+            <h2><span class="icon">⭐</span> Hauptfunktionen</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🎯 Team Management</h4>
+                    <p>Premier- und Turnier-Anmeldungen mit Button-Interface, automatischen Erinnerungen und flexibler Spieler-Verwaltung für bis zu 5 User pro Event.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🏆 Scrim System</h4>
+                    <p>Wöchentliche Scrim-Planung mit mehreren Terminen, automatischen DM-Benachrichtigungen, Zeitänderungs-Funktionen und Verwarnungssystem.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>⚠️ Verwarnungen</h4>
+                    <p>Vollständiges Verwarnungssystem mit Web-Dashboard, Team- und Spieler-Übersichten, Abwesenheits-Tracking und automatischer Historie.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🎮 VALORANT Ranks</h4>
+                    <p>Automatische Rank-Verifizierung via Riot OAuth, automatische Rollenzuweisung (Unranked bis Radiant) und Echtzeit-Updates mit MongoDB.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📅 Abwesenheiten</h4>
+                    <p>Abwesenheitsverwaltung mit Datums-Bereichen, automatischer Erinnerung vor Events und Integration in Scrim-Benachrichtigungen.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🌟 MVP Voting</h4>
+                    <p>Demokratisches MVP-Voting-System nach Matches, Stimmen-Tracking und automatische Auswertung mit Voting-Historie.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="section">
+            <h2><span class="icon">🔧</span> Technologie-Stack</h2>
+            
+            <h3>Core Technologies</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Discord.js v14</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">Express.js</span>
+                <span class="tech-badge">Fastify</span>
+            </div>
+
+            <h3>VALORANT Integration</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">Riot Games API</span>
+                <span class="tech-badge">Riot RSO OAuth</span>
+                <span class="tech-badge">Henrik Dev API</span>
+                <span class="tech-badge">Socket.IO</span>
+            </div>
+
+            <h3>Frontend & Deployment</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">Vanilla JavaScript</span>
+                <span class="tech-badge">Chart.js</span>
+                <span class="tech-badge">GitHub Pages</span>
+                <span class="tech-badge">GitHub Actions</span>
+            </div>
+
+            <h3>Tools & Services</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">Cron Jobs</span>
+                <span class="tech-badge">Axios + Retry</span>
+                <span class="tech-badge">Moment.js</span>
+                <span class="tech-badge">NSSM (Windows Service)</span>
+            </div>
+        </div>
+
+        <!-- Architektur -->
+        <div class="section">
+            <h2><span class="icon">🏗️</span> Projekt-Architektur</h2>
+            
+            <h3>Ordnerstruktur</h3>
+            <div class="code-block">
+<span class="command">app/</span>
+├── 1-src/                    # Source Code
+│   ├── bot/                  # Discord Bot Core
+│   ├── commands/             # Slash Commands & Buttons
+│   ├── webserver/            # Web Server (OAuth, APIs)
+│   └── utils/                # Helper Functions
+├── 2-data/                   # Daten & Konfiguration
+│   ├── basedata.json         # API Keys & Config
+│   ├── abwesenheiten.json    # Abwesenheits-Daten
+│   └── warnings.json         # Verwarnungs-Daten
+├── 3-public/                 # Web Interface (privat)
+│   ├── warnings.html         # Verwarnungs-Dashboard
+│   └── player.html           # Spieler-Details
+├── 4-scripts/                # Deployment Scripts
+├── 5-dist/                   # GitHub Pages (öffentlich)
+│   ├── index.html            # Diese Seite
+│   └── riot.txt              # Riot API Verification
+└── 6-config/                 # Konfigurationsdateien
+
+<span class="command">docs/</span>                       # Dokumentation
+├── API.md                    # API Dokumentation
+└── GITHUB_PAGES_SETUP.md     # Setup-Anleitung
+            </div>
+
+            <h3>System-Komponenten</h3>
+            <ul>
+                <li><strong>Discord Bot:</strong> Hauptanwendung mit Slash Commands, Button-Interaktionen und Cron-Jobs</li>
+                <li><strong>Web Server:</strong> Fastify-Server für OAuth, APIs und Web-Dashboards</li>
+                <li><strong>MongoDB:</strong> Datenbank für User-Links, Logs, Settings und Verwarnungen</li>
+                <li><strong>Web Dashboards:</strong> HTML/JS-basierte Interfaces für Verwarnungen und Spieler-Details</li>
+            </ul>
+        </div>
+
+        <!-- Installation -->
+        <div class="section">
+            <h2><span class="icon">🚀</span> Installation & Setup</h2>
+            
+            <h3>Voraussetzungen</h3>
+            <ul>
+                <li>Node.js v18 oder höher</li>
+                <li>MongoDB v6.0 oder höher</li>
+                <li>Discord Bot Token</li>
+                <li>Riot Games Developer Account (für VALORANT Features)</li>
+            </ul>
+
+            <h3>Quick Start</h3>
+            <div class="code-block">
+<span class="command"># Repository klonen</span>
+git clone https://github.com/Entbannt/TAST.git
+cd TAST
+
+<span class="command"># Dependencies installieren</span>
+npm install
+
+<span class="command"># Konfiguration anpassen</span>
+# Editiere app/2-data/basedata.json mit deinen API Keys
+
+<span class="command"># MongoDB starten</span>
+net start MongoDB
+
+<span class="command"># Bot starten</span>
+node app/1-src/bot/index.js
+            </div>
+
+            <h3>Konfiguration</h3>
+            <p>
+                Erstelle <code>app/2-data/basedata.json</code> mit folgenden Daten:
+            </p>
+            <div class="code-block">
+{
+  "mongoaccess": "mongodb://localhost:27017",
+  "riottoken": "DEIN-RIOT-API-KEY",
+  "client_id": "DEINE-RIOT-CLIENT-ID",
+  "client_secret": "DEIN-RIOT-CLIENT-SECRET",
+  "redirect_uri": "http://localhost:3000/oauth-finished.html",
+  "bot_token": "DEIN-DISCORD-BOT-TOKEN",
+  "domain": "http://localhost:3000"
+}
+            </div>
+        </div>
+
+        <!-- Features Details -->
+        <div class="section">
+            <h2><span class="icon">📚</span> Feature-Details</h2>
+
+            <h3>Premier & Tournament System</h3>
+            <ul>
+                <li>Konfigurierbare Spieltage und Zeiten</li>
+                <li>Automatische Erinnerungen 2 Stunden vor Match</li>
+                <li>Max. 5 User pro Anmeldung</li>
+                <li>Admin-Funktionen zum manuellen Hinzufügen/Entfernen</li>
+                <li>Automatisches Löschen vergangener Anmeldungen</li>
+            </ul>
+
+            <h3>Scrim Management</h3>
+            <ul>
+                <li>Wöchentliche Scrim-Übersicht mit mehreren Terminen</li>
+                <li>Button-Interface für An-/Abmeldungen</li>
+                <li>Zeitänderungs-Modal für Admins</li>
+                <li>DM-Benachrichtigungen an alle Teilnehmer</li>
+                <li>Integration mit Verwarnungssystem</li>
+            </ul>
+
+            <h3>Verwarnungssystem</h3>
+            <ul>
+                <li>Web-Dashboard mit Echtzeit-Statistiken</li>
+                <li>Verwarnungen, Abwesenheiten und Ausnahmen</li>
+                <li>Team-Übersicht mit Charts und Grafiken</li>
+                <li>Spieler-Detail-Seiten mit kompletter Historie</li>
+                <li>Automatisches Tracking von Scrim-Teilnahmen</li>
+            </ul>
+
+            <h3>VALORANT Rank System</h3>
+            <ul>
+                <li>OAuth-Login über Riot Games</li>
+                <li>Automatische Rank-Erkennung (10 Ränge)</li>
+                <li>Discord-Rollenzuweisung basierend auf Rang</li>
+                <li>Update-Funktion für Rang-Änderungen</li>
+                <li>MongoDB-Speicherung der Account-Links</li>
+                <li>Audit-Logs für alle Änderungen</li>
+            </ul>
+        </div>
+
+        <!-- Commands -->
+        <div class="section">
+            <h2><span class="icon">💬</span> Discord Commands</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>/premier</h4>
+                    <p>Erstellt Premier-Anmeldung mit konfigurierten Tagen</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>/tournament</h4>
+                    <p>Erstellt Turnier-Anmeldung mit festen Terminen</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>/scrim</h4>
+                    <p>Erstellt Scrim mit verschiedenen Styles (Default, Split, Multi)</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>/practice</h4>
+                    <p>Erstellt Practice-Anmeldung für Training</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>/autorole</h4>
+                    <p>VALORANT Rank-Verifizierung und Rollen-Setup</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>/abwesend</h4>
+                    <p>Abwesenheit hinzufügen, anzeigen oder löschen</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>/dm</h4>
+                    <p>DM-Benachrichtigungen aktivieren/deaktivieren</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>/silent</h4>
+                    <p>Silent Mode für alle Bot-Nachrichten</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- API & Riot Verification -->
+        <div class="section">
+            <h2><span class="icon">🔐</span> Riot API Verification</h2>
+            <p>
+                Diese Seite hostet die Riot API Verification-Datei für die offizielle Riot Games API Integration.
+            </p>
+            <div class="code-block">
+<span class="command">Verification File:</span>
+https://entbannt.github.io/TAST/riot.txt
+
+<span class="command">Status:</span> <span style="color: #00ff00;">✓ Active</span>
+            </div>
+            <p>
+                Die Datei enthält den UUID-Token zur Verifizierung der API-Berechtigung für VALORANT Rank-Abfragen.
+            </p>
+        </div>
+
+        <!-- Links & Resources -->
+        <div class="section">
+            <h2><span class="icon">🔗</span> Links & Resources</h2>
+            
+            <div class="links">
+                <a href="https://github.com/Entbannt/TAST" class="btn" target="_blank">
+                    📂 GitHub Repository
+                </a>
+                <a href="https://github.com/Entbannt/TAST/blob/main/docs/API.md" class="btn btn-outline" target="_blank">
+                    📖 API Dokumentation
+                </a>
+                <a href="https://developer.riotgames.com/" class="btn btn-outline" target="_blank">
+                    🎮 Riot Developer Portal
+                </a>
+                <a href="riot.txt" class="btn btn-outline" target="_blank">
+                    🔐 Riot Verification
+                </a>
+            </div>
+
+            <h3 style="margin-top: 40px;">Entwickler-Resources</h3>
+            <ul>
+                <li><strong>Discord.js Guide:</strong> https://discordjs.guide/</li>
+                <li><strong>Riot Games API:</strong> https://developer.riotgames.com/docs/portal</li>
+                <li><strong>Henrik Dev API:</strong> https://docs.henrikdev.xyz/</li>
+                <li><strong>MongoDB Docs:</strong> https://docs.mongodb.com/</li>
+            </ul>
+        </div>
+
+        <!-- Lizenz & Credits -->
+        <div class="section">
+            <h2><span class="icon">📄</span> Lizenz & Credits</h2>
+            <p>
+                Dieses Projekt wurde entwickelt für VALORANT E-Sport Teams zur Vereinfachung 
+                von Team-Management und Spieler-Tracking.
+            </p>
+            <p>
+                <strong>Entwickelt von:</strong> Entbannt<br>
+                <strong>GitHub:</strong> <a href="https://github.com/Entbannt" style="color: #ff0000;">@Entbannt</a>
+            </p>
+            <p style="margin-top: 20px; color: #666;">
+                VALORANT und Riot Games sind eingetragene Marken von Riot Games, Inc.<br>
+                Dieses Projekt ist nicht offiziell mit Riot Games verbunden oder von ihnen unterstützt.
             </p>
         </div>
     </div>
+
+    <footer>
+        <p>
+            Made with ❤️ for VALORANT E-Sport Teams<br>
+            © 2024 TAST - Team Anmeldungs & Status Tracker<br>
+            <a href="https://github.com/Entbannt/TAST" target="_blank">View on GitHub</a>
+        </p>
+    </footer>
 </body>
 </html>
-

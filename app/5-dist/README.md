@@ -1,16 +1,18 @@
-# Riot API Verification & Public Pages
+# TAST - Team Anmeldungs & Status Tracker
 
-Dieser Ordner enthält die öffentlich zugänglichen Dateien für GitHub Pages.
+Dieser Ordner enthält die öffentlichen Dateien für GitHub Pages.
 
-## Riot API Verification
-Die Datei `riot.txt` enthält den Verification Code für die Riot API und muss öffentlich erreichbar sein.
+## 📂 Inhalt
 
-## Verfügbare Seiten
-- `index.html` - Hauptseite
-- `player.html` - Spieler-Statistiken
-- `rso.html` - RSO Integration
-- `warnings.html` - Verwarnungen
+- **index.html** - Projektübersichts-Seite
+- **riot.txt** - Riot API Verification Token
 
----
-*Automatisch generiert für GitHub Pages Deployment*
+## 🌐 Live Seite
 
+https://entbannt.github.io/TAST/
+
+## ℹ️ Hinweis
+
+Die Web-Dashboards (Verwarnungen, Spieler-Details etc.) sind nicht öffentlich zugänglich und befinden sich in `app/3-public/`.
+
+Diese werden nur lokal über den Discord Bot Web-Server bereitgestellt.
