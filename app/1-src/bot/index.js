@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 const { Client, GatewayIntentBits, Partials, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Events, SlashCommandBuilder, Collection, MessageFlags, ModalBuilder, TextInputBuilder, TextInputStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
 const cron = require('node-cron');
 const fs = require('fs');
@@ -18,6 +18,14 @@ const client = new Client({
 });
 
 const MAX_USERS = 5;
+
+// ===== DATEIPFADE FÜR DATA-ORDNER =====
+const DATA_DIR = path.join(__dirname, '..', '..', '2-data');
+const ROLES_JSON = path.join(DATA_DIR, 'roles.json');
+const WARNINGS_JSON = path.join(DATA_DIR, 'warnings.json');
+const ABWESENHEITEN_JSON = path.join(DATA_DIR, 'abwesenheiten.json');
+const MVP_VOTES_JSON = path.join(DATA_DIR, 'mvp_votes.json');
+const PREMIER_BACKUP_JSON = path.join(DATA_DIR, 'premier_backup.json');
 
 // ===== BEWERBUNGSSYSTEM KONFIGURATION =====
 const BEWERBUNGS_KATEGORIE_ID = '1399136926358962266'; // Kategorie-ID für Bewerbungs-Tickets
@@ -199,7 +207,7 @@ async function getUsersWithRoles(guild, roleIds) {
 // Hilfsfunktion: Lädt Rollenkonfiguration aus JSON
 function loadRolesConfig() {
     try {
-        return JSON.parse(require('fs').readFileSync('./roles.json', 'utf8'));
+        return JSON.parse(require('fs').readFileSync(ROLES_JSON, 'utf8'));
     } catch (error) {
         console.error('Fehler beim Laden der Rollenkonfiguration:', error);
         // Fallback auf neue Konfiguration (minimal)
@@ -1275,7 +1283,7 @@ async function addMessageIdToBoard(boardType, messageId) {
                 
                 // Speichere aktualisierte Konfiguration
                 const fs = require('fs');
-                fs.writeFileSync('./roles.json', JSON.stringify(rolesConfig, null, 2));
+                fs.writeFileSync(ROLES_JSON, JSON.stringify(rolesConfig, null, 2));
                 console.log(`Message-ID ${messageId} zu ${boardType} Board hinzugefügt`);
             }
         }
@@ -1300,7 +1308,7 @@ async function removeMessageIdFromBoard(boardType, messageId) {
                 
                 // Speichere aktualisierte Konfiguration
                 const fs = require('fs');
-                fs.writeFileSync('./roles.json', JSON.stringify(rolesConfig, null, 2));
+                fs.writeFileSync(ROLES_JSON, JSON.stringify(rolesConfig, null, 2));
                 console.log(`Message-ID ${messageId} aus ${boardType} Board entfernt`);
             }
         }
@@ -1937,7 +1945,7 @@ function saveSignupBackup() {
             tournamentSignups: tournamentSignups,
             timestamp: getGermanDate().toISOString()
         };
-        fs.writeFileSync('premier_backup.json', JSON.stringify(backupData, null, 2));
+        fs.writeFileSync(PREMIER_BACKUP_JSON, JSON.stringify(backupData, null, 2));
     } catch (error) {
         console.error('Fehler beim Speichern des Backups:', error);
     }
@@ -2120,7 +2128,7 @@ function saveMVPVotes() {
             votes: global.mvpVotes || {},
             timestamp: new Date().toISOString()
         };
-        fs.writeFileSync('mvp_votes.json', JSON.stringify(voteData, null, 2));
+        fs.writeFileSync(MVP_VOTES_JSON, JSON.stringify(voteData, null, 2));
     } catch (error) {
         console.error('Fehler beim Speichern der MVP-Votes:', error);
     }
@@ -2128,8 +2136,8 @@ function saveMVPVotes() {
 
 function loadMVPVotes() {
     try {
-        if (fs.existsSync('mvp_votes.json')) {
-            const voteData = JSON.parse(fs.readFileSync('mvp_votes.json', 'utf8'));
+        if (fs.existsSync(MVP_VOTES_JSON)) {
+            const voteData = JSON.parse(fs.readFileSync(MVP_VOTES_JSON, 'utf8'));
             global.mvpVotes = voteData.votes || {};
             
             // Stelle Timer für zeitbasierte Abstimmungen wieder her
@@ -2272,7 +2280,7 @@ function saveWarnings() {
             warnings: global.warnings || {},
             timestamp: new Date().toISOString()
         };
-        fs.writeFileSync('warnings.json', JSON.stringify(warningsData, null, 2));
+        fs.writeFileSync(WARNINGS_JSON, JSON.stringify(warningsData, null, 2));
         console.log('Verwarnungen gespeichert');
     } catch (error) {
         console.error('Fehler beim Speichern der Verwarnungen:', error);
@@ -2281,8 +2289,8 @@ function saveWarnings() {
 
 function loadWarnings() {
     try {
-        if (fs.existsSync('warnings.json')) {
-            const warningsData = JSON.parse(fs.readFileSync('warnings.json', 'utf8'));
+        if (fs.existsSync(WARNINGS_JSON)) {
+            const warningsData = JSON.parse(fs.readFileSync(WARNINGS_JSON, 'utf8'));
             global.warnings = warningsData.warnings || {};
             console.log(`Verwarnungen geladen: ${Object.keys(global.warnings).length} Spieler`);
             return true;
@@ -2307,8 +2315,8 @@ if (!global.warnings) {
 // Hilfsfunktion: Lädt Anmeldungen aus einer Backup-Datei
 async function loadSignupBackup() {
     try {
-        if (fs.existsSync('premier_backup.json')) {
-            const backupData = JSON.parse(fs.readFileSync('premier_backup.json', 'utf8'));
+        if (fs.existsSync(PREMIER_BACKUP_JSON)) {
+            const backupData = JSON.parse(fs.readFileSync(PREMIER_BACKUP_JSON, 'utf8'));
             
             // Konfigurationen laden - handle both old flat format and new team-based format
             // WICHTIG: Überschreibe NICHT das gesamte Objekt, da Getter-Properties verloren gehen würden!
