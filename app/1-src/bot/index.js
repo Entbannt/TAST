@@ -8,6 +8,14 @@ const path = require('path');
 const { spawn } = require('child_process');
 const http = require('http');
 
+// VALORANT Rank System Integration
+const {
+    initializeValorantSystem,
+    addAutoroleCommand,
+    handleAutoroleButton,
+    handleAutoroleCommand
+} = require('./valorant-integration.js');
+
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -2938,6 +2946,9 @@ client.once(Events.ClientReady, async () => {
     // Lade MVP-Votes (mit await um sicherzustellen dass es fertig ist)
     await loadMVPVotes();
     
+    // Initialisiere VALORANT Rank System
+    await initializeValorantSystem(client);
+    
     // Lade Verwarnungen
     loadWarnings();
     
@@ -3669,6 +3680,10 @@ client.once(Events.ClientReady, async () => {
             .toJSON(),
         
     ];
+    
+    // VALORANT AutoRole Command hinzufügen
+    addAutoroleCommand(data);
+    
     await client.application.commands.set(data);
 });
 
@@ -6450,6 +6465,20 @@ function getBewerbungsButtons(userId) {
 client.on(Events.InteractionCreate, async interaction => {
     // GLOBALE FEHLERBEHANDLUNG - Verhindert Bot-Abstürze
     try {
+
+    // ===== VALORANT AUTO-ROLE SYSTEM =====
+    // Prüfe zuerst AutoRole Buttons
+    if (interaction.isButton()) {
+        const handled = await handleAutoroleButton(interaction);
+        if (handled) return; // Button wurde behandelt, fertig
+    }
+    
+    // Prüfe AutoRole Slash Commands
+    if (interaction.isChatInputCommand()) {
+        const handled = await handleAutoroleCommand(interaction);
+        if (handled) return; // Command wurde behandelt, fertig
+    }
+    // ===== ENDE VALORANT SYSTEM =====
 
     // EARLY: Abwesend modal open before any other button logic to avoid prior acknowledgement
     if (interaction.isButton() && interaction.customId === 'abwesend_modal') {
