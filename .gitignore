@@ -1,0 +1,7 @@
+# Ignoriere alles außer dist Inhalte
+node_modules/
+*.json
+*.js
+*.ps1
+*.bat
+*.exe
