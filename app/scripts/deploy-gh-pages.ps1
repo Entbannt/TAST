@@ -28,11 +28,11 @@ if ($status) {
 
 # Aktualisiere den dist-Ordner
 Write-Host "`nAktualisiere dist-Ordner..." -ForegroundColor Green
-if (-not (Test-Path dist)) {
-    New-Item -ItemType Directory -Path dist | Out-Null
+if (-not (Test-Path app\dist)) {
+    New-Item -ItemType Directory -Path app\dist | Out-Null
 }
-Copy-Item riot.txt dist\ -Force
-Copy-Item public\*.html dist\ -Force
+Copy-Item app\config\riot.txt app\dist\ -Force
+Copy-Item app\public\*.html app\dist\ -Force
 Write-Host "Dateien aktualisiert!" -ForegroundColor Green
 
 # Prüfe ob gh-pages Branch existiert
@@ -45,7 +45,7 @@ if (-not $branchExists) {
     git rm -rf .
     
     # Kopiere dist Inhalte
-    Get-ChildItem dist\* | Copy-Item -Destination . -Recurse -Force
+    Get-ChildItem app\dist\* | Copy-Item -Destination . -Recurse -Force
     
     # Erstelle .gitignore für gh-pages
     @"
@@ -79,15 +79,15 @@ node_modules/
     Write-Host "Aktueller Branch: $currentBranch" -ForegroundColor Cyan
     
     # Committe dist Änderungen im aktuellen Branch falls nötig
-    git add dist/
-    $distStatus = git status --porcelain dist/
+    git add app/dist/
+    $distStatus = git status --porcelain app/dist/
     if ($distStatus) {
         git commit -m "Update dist folder for GitHub Pages" -ErrorAction SilentlyContinue
     }
     
     # Push zum gh-pages Branch mit subtree
     Write-Host "Pushe dist-Ordner zu gh-pages..." -ForegroundColor Green
-    git subtree push --prefix dist origin gh-pages
+    git subtree push --prefix app/dist origin gh-pages
     
     Write-Host "`n=== Deployment abgeschlossen! ===" -ForegroundColor Cyan
     Write-Host "GitHub Pages wurde aktualisiert!" -ForegroundColor Green

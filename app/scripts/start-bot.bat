@@ -1,6 +1,8 @@
 @echo off
 echo Starting Discord Bot...
-cd /d "%~dp0"
+
+REM Wechsle zum Projekt-Root (zwei Ordner über scripts/)
+cd /d "%~dp0\..\.."
 
 REM Prüfen ob Node.js installiert ist
 node --version >nul 2>&1
@@ -27,7 +29,7 @@ if not exist "node_modules" (
 
 REM Bot starten
 echo Starte Discord Bot...
-node index.js
+node app\src\bot\index.js
 
 REM Bei Fehler Fenster offen lassen
 if errorlevel 1 (

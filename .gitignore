@@ -3,15 +3,10 @@ node_modules/
 *.env
 .env
 .DS_Store
-nssm.exe
 
-# JSON Dateien mit sensiblen Daten
-abwesenheiten.json
-basedata.json
-mvp_votes.json
-premier_backup.json
-roles.json
-warnings.json
+# Sensible Daten im app/data/ Ordner
+app/data/
+!app/data/.gitkeep
 
 # Dist-Ordner wird separat gemanagt für GitHub Pages
-# dist/
+# app/dist/

@@ -15,14 +15,16 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     exit 1
 }
 
-# Aktuelles Verzeichnis
-$CurrentPath = Get-Location
-$BotPath = Join-Path $CurrentPath "index.js"
-$BatchPath = Join-Path $CurrentPath "start-bot.bat"
+# Aktuelles Verzeichnis (Projekt-Root)
+$ScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path  # app/scripts/
+$AppPath = Split-Path -Parent $ScriptPath  # app/
+$CurrentPath = Split-Path -Parent $AppPath  # TAST/
+$BotPath = Join-Path $CurrentPath "app\src\bot\index.js"
+$BatchPath = Join-Path $ScriptPath "start-bot.bat"
 
 # Prüfen ob Bot-Dateien existieren
 if (-not (Test-Path $BotPath)) {
-    Write-Host "FEHLER: index.js nicht gefunden in $CurrentPath" -ForegroundColor Red
+    Write-Host "FEHLER: index.js nicht gefunden in $BotPath" -ForegroundColor Red
     Read-Host "Drücken Sie Enter zum Beenden..."
     exit 1
 }

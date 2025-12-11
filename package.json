@@ -20,6 +20,7 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "start": "ts-node premier-bot.ts"
+    "start": "node app/src/bot/index.js",
+    "dev": "node app/src/bot/index.js"
   }
 }
